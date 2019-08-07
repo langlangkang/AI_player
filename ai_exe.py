@@ -67,6 +67,9 @@ class ai():
         return self.gesture_contrast[gesture] if gesture in self.gesture_contrast else "指令未收录"
 
     def bofang(self):
+
+
+
         while True:
             print('* 1.播放\n'
                   '* 2.暂停\n'
@@ -158,6 +161,15 @@ if __name__ == '__main__':
     if not os.path.exists(path):
         os.mkdir(path)
         os.kill(os.getpid(), 9)
+    musics = os.listdir(path=path)
+    if not musics:
+        print('文件夹里面没有东西')
+    else:
+        for i,music in enumerate(musics):
+            if music.endswith('.mp3'):
+                print('有{}首歌'.format(i+1))
+            else:
+                print('music目录下没有歌，请放入歌')
 
     AI=ai()
     Thread(target=AI.camera).start()
