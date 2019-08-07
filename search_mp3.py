@@ -5,11 +5,12 @@ import shutil
 
 
 class SEARCH():
-    def __init__(self):
-        self.path = r'D:'
-        self.save_music_path = './musicfiles/'
-        self.files=[]
-        self.mp3files=[]
+    def __init__(self,current_path):
+        self.path = current_path #正在搜索的当前目录
+        self.save_music_path = './music/' #保存歌曲的目录
+        self.song_size=2 * 1024 *1024  #只选择2M以上的歌
+        self.files=[]  #搜索到的所有文件
+        self.mp3files=[]  #有歌曲的文件
 
     def traverse(self,f):
 
@@ -29,15 +30,20 @@ class SEARCH():
 
         for i in self.files:
             if i.endswith('.mp3'):
-                self.mp3files.append(i)
+                if os.path.getsize(i) > self.song_size:  #大于指定歌曲大小的才要
+                    self.mp3files.append(i)
+                else:
+                    pass
             else:
                 continue
 
         #print(self.mp3files)
 
         print('总共有{}首音乐'.format(len(self.mp3files)))
-        self.mp3files = list(set(self.mp3files))
+        self.mp3files = list(set(self.mp3files))  #去重
         print('去重后总共有{}首音乐'.format(len(self.mp3files)))
+
+
 
     def copyfile(self):
         if not os.path.exists(self.save_music_path):
@@ -68,5 +74,15 @@ class SEARCH():
         self.copyfile()
 
 if __name__ == '__main__':
-    search=SEARCH()
-    search.run()
+    #搜索盘
+    path_list=['D:\\','E:\\','F:\\']
+    for path in path_list:
+        try:
+            os.listdir(path)
+            print('系统找到指定的路径。',path)
+        except FileNotFoundError as e:
+            print('系统找不到指定的路径。',path)
+            continue
+
+        search=SEARCH(path)
+        search.run()
