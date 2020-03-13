@@ -15,3 +15,8 @@
 8. 双手抱拳 退出
 
 打开main主程序即可运行
+出现ModuleNotFoundError: No module named 'cv2'时   pip install opencv-python
+使用 pip  install  baidu-api 安装   api    
+ 
+百度手势识别的帮助文档链接：http://ai.baidu.com/ai-doc/BODY/Yk3cpymjy
+方便规范手势动作和对程序进行修改
